@@ -1,0 +1,8 @@
+{
+  "app_id": "com.aurelia.app.tiktok.0059",
+  "name": "tiktok-0059",
+  "version": "1.0.0",
+  "package_type": "apk",
+  "download_url": "https://aurelia-cdn.net/apks/tiktok-0059.apk",
+  "permissions": ["INTERNET", "STORAGE", "CAMERA"]
+}

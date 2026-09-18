@@ -1,0 +1,8 @@
+{
+  "app_id": "com.aurelia.app.genshin-impact.0935",
+  "name": "genshin-impact-0935",
+  "version": "1.0.0",
+  "package_type": "apk",
+  "download_url": "https://aurelia-cdn.net/apks/genshin-impact-0935.apk",
+  "permissions": ["INTERNET", "STORAGE", "CAMERA"]
+}

@@ -1,0 +1,8 @@
+{
+  "app_id": "com.aurelia.app.spotify.0432",
+  "name": "spotify-0432",
+  "version": "1.0.0",
+  "package_type": "apk",
+  "download_url": "https://aurelia-cdn.net/apks/spotify-0432.apk",
+  "permissions": ["INTERNET", "STORAGE", "CAMERA"]
+}

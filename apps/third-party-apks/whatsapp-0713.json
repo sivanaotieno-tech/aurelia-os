@@ -1,0 +1,8 @@
+{
+  "app_id": "com.aurelia.app.whatsapp.0713",
+  "name": "whatsapp-0713",
+  "version": "1.0.0",
+  "package_type": "apk",
+  "download_url": "https://aurelia-cdn.net/apks/whatsapp-0713.apk",
+  "permissions": ["INTERNET", "STORAGE", "CAMERA"]
+}

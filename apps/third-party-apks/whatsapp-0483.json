@@ -1,0 +1,8 @@
+{
+  "app_id": "com.aurelia.app.whatsapp.0483",
+  "name": "whatsapp-0483",
+  "version": "1.0.0",
+  "package_type": "apk",
+  "download_url": "https://aurelia-cdn.net/apks/whatsapp-0483.apk",
+  "permissions": ["INTERNET", "STORAGE", "CAMERA"]
+}

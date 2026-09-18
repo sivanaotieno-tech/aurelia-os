@@ -1,0 +1,8 @@
+{
+  "app_id": "com.aurelia.app.subway-surfers.0026",
+  "name": "subway-surfers-0026",
+  "version": "1.0.0",
+  "package_type": "apk",
+  "download_url": "https://aurelia-cdn.net/apks/subway-surfers-0026.apk",
+  "permissions": ["INTERNET", "STORAGE", "CAMERA"]
+}

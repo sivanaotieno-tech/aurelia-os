@@ -1,0 +1,8 @@
+{
+  "app_id": "com.aurelia.app.call-of-duty.0484",
+  "name": "call-of-duty-0484",
+  "version": "1.0.0",
+  "package_type": "apk",
+  "download_url": "https://aurelia-cdn.net/apks/call-of-duty-0484.apk",
+  "permissions": ["INTERNET", "STORAGE", "CAMERA"]
+}

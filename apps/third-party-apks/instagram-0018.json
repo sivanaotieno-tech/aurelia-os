@@ -1,0 +1,8 @@
+{
+  "app_id": "com.aurelia.app.instagram.0018",
+  "name": "instagram-0018",
+  "version": "1.0.0",
+  "package_type": "apk",
+  "download_url": "https://aurelia-cdn.net/apks/instagram-0018.apk",
+  "permissions": ["INTERNET", "STORAGE", "CAMERA"]
+}

@@ -1,0 +1,8 @@
+{
+  "app_id": "com.aurelia.app.spotify.0312",
+  "name": "spotify-0312",
+  "version": "1.0.0",
+  "package_type": "apk",
+  "download_url": "https://aurelia-cdn.net/apks/spotify-0312.apk",
+  "permissions": ["INTERNET", "STORAGE", "CAMERA"]
+}

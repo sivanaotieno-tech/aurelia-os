@@ -1,0 +1,8 @@
+{
+  "app_id": "com.aurelia.app.roblox.0397",
+  "name": "roblox-0397",
+  "version": "1.0.0",
+  "package_type": "apk",
+  "download_url": "https://aurelia-cdn.net/apks/roblox-0397.apk",
+  "permissions": ["INTERNET", "STORAGE", "CAMERA"]
+}

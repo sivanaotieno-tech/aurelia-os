@@ -1,0 +1,8 @@
+{
+  "app_id": "com.aurelia.app.fortnite.0270",
+  "name": "fortnite-0270",
+  "version": "1.0.0",
+  "package_type": "apk",
+  "download_url": "https://aurelia-cdn.net/apks/fortnite-0270.apk",
+  "permissions": ["INTERNET", "STORAGE", "CAMERA"]
+}

@@ -1,0 +1,8 @@
+{
+  "app_id": "com.aurelia.app.pubg-mobile.0501",
+  "name": "pubg-mobile-0501",
+  "version": "1.0.0",
+  "package_type": "apk",
+  "download_url": "https://aurelia-cdn.net/apks/pubg-mobile-0501.apk",
+  "permissions": ["INTERNET", "STORAGE", "CAMERA"]
+}
