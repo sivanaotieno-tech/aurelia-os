@@ -1,0 +1,113 @@
+name: Build E.V. Windows Installer
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*'
+
+concurrency:
+  group: ev-windows-installer-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: backend/requirements.txt
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: stable-x86_64-pc-windows-msvc
+          targets: x86_64-pc-windows-msvc
+
+      - name: Install npm dependencies from package.json
+        run: npm install --no-package-lock
+
+      - name: Validate frontend
+        run: npm run build
+
+      - name: Validate Python backend syntax
+        shell: pwsh
+        run: py -3.12 -m compileall -q backend
+
+      - name: Create Python environment
+        shell: pwsh
+        run: |
+          py -3.12 -m venv .venv
+          .\.venv\Scripts\python.exe -m pip install --upgrade pip
+          .\.venv\Scripts\python.exe -m pip install -r backend\requirements.txt
+          .\.venv\Scripts\python.exe -m pip install "pyinstaller>=6,<7"
+
+      - name: Build backend
+        shell: pwsh
+        run: |
+          .\.venv\Scripts\python.exe -m PyInstaller --clean --onefile --name ev-backend --paths backend backend\server.py
+          New-Item -ItemType Directory -Force -Path backend\dist | Out-Null
+          Copy-Item dist\ev-backend.exe backend\dist\ev-backend.exe -Force
+
+      - name: Build frontend and NSIS installer
+        run: npm run tauri -- build --bundles nsis --no-sign
+
+      - name: Create single distribution EXE
+        shell: pwsh
+        run: |
+          $nsisDir = "src-tauri\target\release\bundle\nsis"
+          $setup = Get-ChildItem $nsisDir -Filter "*.exe" | Select-Object -First 1
+          if (-not $setup) { throw "NSIS installer EXE was not produced." }
+
+          New-Item -ItemType Directory -Force -Path installer\dist | Out-Null
+          Remove-Item installer\dist\* -Force -ErrorAction SilentlyContinue
+
+          $final = "installer\dist\E.V.-Enhanced-Voice-Setup.exe"
+          Copy-Item $setup.FullName $final -Force
+
+          $hash = Get-FileHash $final -Algorithm SHA256
+          "SHA256: $($hash.Hash)" | Set-Content installer\dist\E.V.-Enhanced-Voice-Setup.sha256
+          Write-Host "Created: $final"
+          Write-Host "SHA256: $($hash.Hash)"
+
+      - name: Upload single EXE artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: E.V.-Enhanced-Voice-Setup
+          path: installer/dist/E.V.-Enhanced-Voice-Setup.exe
+          if-no-files-found: error
+          compression-level: 0
+
+      - name: Publish EXE to GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: installer/dist/E.V.-Enhanced-Voice-Setup.exe
+          fail_on_unmatched_files: true
+          generate_release_notes: true
+          name: E.V. ${{ github.ref_name }}
+          body: |
+            # E.V. — Enhanced Voice
+
+            Windows installer for the local-first E.V. desktop AI assistant.
+
+            **Installer:** `E.V.-Enhanced-Voice-Setup.exe`
+
+            The installer is the Windows setup wizard itself. Double-click the EXE to install E.V.

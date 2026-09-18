@@ -1,0 +1,43 @@
+{
+  "buildFiles": [
+    "C:\\Users\\Admin\\Downloads\\Movies_for-my-home_theatre\\aurelia-os\\node_modules\\react-native-svg\\android\\src\\main\\jni\\CMakeLists.txt",
+    "C:\\Users\\Admin\\Downloads\\Movies_for-my-home_theatre\\aurelia-os\\node_modules\\react-native\\ReactAndroid\\cmake-utils\\default-app-setup\\CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "C:\\AndroidSDK\\cmake\\3.22.1\\bin\\ninja.exe",
+      "-C",
+      "C:\\Users\\Admin\\Downloads\\Movies_for-my-home_theatre\\aurelia-os\\android\\app\\.cxx\\RelWithDebInfo\\n3e2h334\\x86_64",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "C:\\AndroidSDK\\cmake\\3.22.1\\bin\\ninja.exe",
+    "-C",
+    "C:\\Users\\Admin\\Downloads\\Movies_for-my-home_theatre\\aurelia-os\\android\\app\\.cxx\\RelWithDebInfo\\n3e2h334\\x86_64",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "appmodules::@6890427a1f51a3e7e1df": {
+      "artifactName": "appmodules",
+      "abi": "x86_64",
+      "output": "C:\\Users\\Admin\\Downloads\\Movies_for-my-home_theatre\\aurelia-os\\android\\app\\build\\intermediates\\cxx\\RelWithDebInfo\\n3e2h334\\obj\\x86_64\\libappmodules.so",
+      "runtimeFiles": [
+        "C:\\Users\\Admin\\Downloads\\Movies_for-my-home_theatre\\aurelia-os\\android\\app\\build\\intermediates\\cxx\\RelWithDebInfo\\n3e2h334\\obj\\x86_64\\libreact_codegen_rnsvg.so",
+        "C:\\Users\\Admin\\.gradle\\caches\\9.4.1\\transforms\\3cb1792e16d0777e9535521c99f0b7b5\\transformed\\fbjni-0.7.0\\prefab\\modules\\fbjni\\libs\\android.x86_64\\libfbjni.so",
+        "C:\\Users\\Admin\\.gradle\\caches\\9.4.1\\transforms\\204d584591ab9b6b16b405e00f223bd0\\transformed\\react-android-0.87.0-release\\prefab\\modules\\jsi\\libs\\android.x86_64\\libjsi.so",
+        "C:\\Users\\Admin\\.gradle\\caches\\9.4.1\\transforms\\204d584591ab9b6b16b405e00f223bd0\\transformed\\react-android-0.87.0-release\\prefab\\modules\\reactnative\\libs\\android.x86_64\\libreactnative.so"
+      ]
+    },
+    "react_codegen_rnsvg::@4f40eb209d0c0b4a3b65": {
+      "artifactName": "react_codegen_rnsvg",
+      "abi": "x86_64",
+      "output": "C:\\Users\\Admin\\Downloads\\Movies_for-my-home_theatre\\aurelia-os\\android\\app\\build\\intermediates\\cxx\\RelWithDebInfo\\n3e2h334\\obj\\x86_64\\libreact_codegen_rnsvg.so",
+      "runtimeFiles": [
+        "C:\\Users\\Admin\\.gradle\\caches\\9.4.1\\transforms\\204d584591ab9b6b16b405e00f223bd0\\transformed\\react-android-0.87.0-release\\prefab\\modules\\reactnative\\libs\\android.x86_64\\libreactnative.so",
+        "C:\\Users\\Admin\\.gradle\\caches\\9.4.1\\transforms\\204d584591ab9b6b16b405e00f223bd0\\transformed\\react-android-0.87.0-release\\prefab\\modules\\jsi\\libs\\android.x86_64\\libjsi.so",
+        "C:\\Users\\Admin\\.gradle\\caches\\9.4.1\\transforms\\3cb1792e16d0777e9535521c99f0b7b5\\transformed\\fbjni-0.7.0\\prefab\\modules\\fbjni\\libs\\android.x86_64\\libfbjni.so"
+      ]
+    }
+  }
+}

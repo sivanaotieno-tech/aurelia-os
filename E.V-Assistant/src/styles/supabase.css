@@ -1,0 +1,7 @@
+.first-run:not(.boot-gate) {
+  display: none !important;
+}
+
+.supabase-offline {
+  color: #ff6d7f;
+}

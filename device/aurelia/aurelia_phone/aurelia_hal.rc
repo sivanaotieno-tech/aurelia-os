@@ -1,0 +1,7 @@
+
+service aurelia_hal /vendor/bin/aurelia_hal_daemon
+    class hal
+    user system
+    group system camera display
+    onready
+

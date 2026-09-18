@@ -1,0 +1,29 @@
+{
+  "device_specifications": {
+    "battery": {
+      "capacity": "4000mAh - 5000mAh",
+      "target_life": "All-day usage"
+    },
+    "performance": {
+      "processor": "High-performance Octa-Core",
+      "ram_minimum": "6GB",
+      "multitasking_optimized": true
+    },
+    "storage": {
+      "minimum_capacity": "256GB",
+      "recommended_type": "UFS 3.1 or higher"
+    },
+    "display": {
+      "resolution": "FHD+ or higher",
+      "refresh_rate": ["90Hz", "120Hz"],
+      "type": "AMOLED / OLED"
+    },
+    "camera": {
+      "main_sensor": "High-resolution with HDR and low-light optimization"
+    },
+    "connectivity": {
+      "networks": ["4G VoLTE", "5G"],
+      "features": ["HD Calling", "High-speed mobile data"]
+    }
+  }
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="none">
+        <item android:icon="@drawable/ic_action_add" android:id="@id/nav_add_new" android:title="@string/access_add_app" />
+        <item android:icon="@drawable/ic_star" android:id="@id/nav_rate_app" android:title="@string/access_rate" />
+        <item android:icon="@drawable/btn_bar_clean_mem" android:id="@id/nav_clean_mem" android:title="@string/access_clean_mem" />
+        <item android:icon="@drawable/ic_coin" android:id="@id/nav_earn_credits" android:title="@string/activity_credits_title" />
+    </group>
+    <group android:id="@id/group_networks" />
+    <group android:id="@id/group_contact" />
+</menu>

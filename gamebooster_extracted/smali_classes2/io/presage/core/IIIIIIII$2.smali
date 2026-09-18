@@ -1,0 +1,44 @@
+.class final Lio/presage/core/IIIIIIII$2;
+.super Ljava/lang/Object;
+
+# interfaces
+.implements Lio/presage/core/IlllIlll$IIIIIIII;
+
+
+# annotations
+.annotation system Ldalvik/annotation/EnclosingMethod;
+    value = Lio/presage/core/IIIIIIII;-><init>(Landroid/content/Context;)V
+.end annotation
+
+.annotation system Ldalvik/annotation/InnerClass;
+    accessFlags = 0x0
+    name = null
+.end annotation
+
+
+# instance fields
+.field final synthetic IIIIIIII:Lio/presage/core/IIIIIIII;
+
+
+# direct methods
+.method constructor <init>(Lio/presage/core/IIIIIIII;)V
+    .locals 0
+
+    iput-object p1, p0, Lio/presage/core/IIIIIIII$2;->IIIIIIII:Lio/presage/core/IIIIIIII;
+
+    invoke-direct {p0}, Ljava/lang/Object;-><init>()V
+
+    return-void
+.end method
+
+
+# virtual methods
+.method public final IIIIIIII(Ljava/io/File;)V
+    .locals 0
+
+    iget-object p1, p0, Lio/presage/core/IIIIIIII$2;->IIIIIIII:Lio/presage/core/IIIIIIII;
+
+    invoke-static {p1}, Lio/presage/core/IIIIIIII;->IIIIIIIl(Lio/presage/core/IIIIIIII;)V
+
+    return-void
+.end method

@@ -1,0 +1,39 @@
+{
+  "name": "ev-enhanced-voice",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "tauri": "tauri",
+    "tauri:dev": "powershell -ExecutionPolicy Bypass -File scripts/tauri-dev.ps1",
+    "tauri:build": "powershell -ExecutionPolicy Bypass -File scripts/tauri-build.ps1",
+    "tauri:android:init": "tauri android init",
+    "tauri:android:dev": "tauri android dev",
+    "tauri:android:build": "tauri android build",
+    "tauri:ios:init": "tauri ios init",
+    "tauri:ios:dev": "tauri ios dev",
+    "tauri:ios:build": "tauri ios build",
+    "backend:setup": "powershell -ExecutionPolicy Bypass -File scripts/setup-backend.ps1",
+    "backend:run": "powershell -ExecutionPolicy Bypass -File scripts/run-backend.ps1",
+    "backend:build": "powershell -ExecutionPolicy Bypass -File scripts/build-backend.ps1",
+    "check:tauri": "node scripts/check-tauri.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "2.112.3",
+    "@tauri-apps/api": "2.11.1",
+    "@tauri-apps/plugin-autostart": "^2.5.1",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "2.11.4",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@vitejs/plugin-react": "^5.0.2",
+    "typescript": "^5.9.2",
+    "vite": "^7.1.1"
+  }
+}

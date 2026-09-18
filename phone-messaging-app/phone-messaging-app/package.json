@@ -1,0 +1,17 @@
+{
+  "name": "native-comm-suite",
+  "private": true,
+  "version": "1.0.0",
+  "workspaces": ["mobile", "server"],
+  "scripts": {
+    "install:all": "npm install --workspaces",
+    "typecheck": "npm run typecheck --workspace server && npm run typecheck --workspace mobile",
+    "test": "npm test --workspace server",
+    "mobile:start": "npm run start --workspace mobile",
+    "mobile:android": "npm run android --workspace mobile",
+    "mobile:prebuild": "npm run prebuild --workspace mobile",
+    "server:dev": "npm run dev --workspace server",
+    "server:start": "npm run start --workspace server"
+  },
+  "engines": {"node": ">=20.19.0"}
+}

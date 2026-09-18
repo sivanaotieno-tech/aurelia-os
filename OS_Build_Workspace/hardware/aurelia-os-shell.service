@@ -1,0 +1,14 @@
+﻿[Unit]
+Description=Aurelia OS Hardware Display Shell
+After=systemd-user-sessions.service graphics.target
+Wants=graphics.target
+
+[Service]
+Type=simple
+ExecStart=/bin/bash /usr/lib/aurelia/start-os-shell.sh
+Restart=always
+RestartSec=2
+User=root
+
+[Install]
+WantedBy=graphical.target

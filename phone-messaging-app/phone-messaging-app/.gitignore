@@ -1,0 +1,14 @@
+node_modules/
+.env
+.env.*
+!.env.example
+.expo/
+android/
+ios/
+dist/
+build/
+coverage/
+server/uploads/*
+!server/uploads/.gitkeep
+*.log
+.DS_Store

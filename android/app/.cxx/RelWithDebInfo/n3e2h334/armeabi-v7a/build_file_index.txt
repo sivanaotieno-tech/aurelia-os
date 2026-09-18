@@ -1,0 +1,2 @@
+C:\Users\Admin\Downloads\Movies_for-my-home_theatre\aurelia-os\node_modules\react-native-svg\android\src\main\jni\CMakeLists.txt
+C:\Users\Admin\Downloads\Movies_for-my-home_theatre\aurelia-os\node_modules\react-native\ReactAndroid\cmake-utils\default-app-setup\CMakeLists.txt

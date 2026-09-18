@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="options_tutorial">
+        <item>Basic Optimization (FREE, NO credits)</item>
+        <item>Advanced Optimizations (Requires credits)</item>
+        <item>Go To Our Website</item>
+    </string-array>
+</resources>

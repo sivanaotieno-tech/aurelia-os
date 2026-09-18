@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "jsx": "react-native",
+    "target": "ESNext",
+    "moduleResolution": "bundler",
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true
+  },
+  "exclude": ["node_modules"]
+}

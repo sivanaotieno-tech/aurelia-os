@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:id="@id/header_root" android:background="#ff000000" android:padding="10.0dip" android:clickable="true" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <ImageView android:id="@id/ribbon_img" android:layout_width="fill_parent" android:layout_height="200.0dip" android:src="@drawable/premium_ribbon_256" android:layout_centerHorizontal="true" />
+        <LinearLayout android:gravity="center" android:layout_gravity="center" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_alignBottom="@id/ribbon_img" android:layout_centerHorizontal="true">
+            <TextView android:textSize="14.0sp" android:textStyle="bold" android:textColor="@color/colorAccent" android:gravity="center" android:id="@id/ribbon_title" android:background="@drawable/bg_rounded_sq_white" android:padding="2.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/premium_noads_title" android:textAllCaps="true" />
+            <TextView android:textSize="11.0sp" android:textColor="@color/colorAccent" android:gravity="center" android:background="@drawable/bg_rounded_sq_white" android:padding="2.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/premium_noads_desc" android:textAllCaps="true" />
+        </LinearLayout>
+    </RelativeLayout>
+    <Button android:textStyle="bold" android:textColor="@android:color/white" android:layout_gravity="center_horizontal" android:background="@drawable/bg_rounded_sq_red" android:focusable="false" android:clickable="false" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="10.0dip" android:minHeight="30.0dip" android:text="@string/premium_CTA" android:textAllCaps="true" />
+</LinearLayout>

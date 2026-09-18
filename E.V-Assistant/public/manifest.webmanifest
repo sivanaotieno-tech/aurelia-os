@@ -1,0 +1,13 @@
+{
+  "name": "E.V. — Enhanced Voice",
+  "short_name": "E.V.",
+  "description": "Local-first E.V. voice assistant companion.",
+  "start_url": "/?mode=mobile",
+  "display": "standalone",
+  "background_color": "#040810",
+  "theme_color": "#050a12",
+  "orientation": "any",
+  "icons": [
+    {"src":"/ev-icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ]
+}

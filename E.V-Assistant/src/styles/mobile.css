@@ -1,0 +1,84 @@
+/* E.V. mobile / tablet layout.
+   Keeps the same visual language while switching the desktop 3-column HUD to a touch-first flow. */
+
+@media (max-width: 900px) {
+  html, body, #root { min-width: 0; overflow: auto; }
+  .hud-shell { min-width: 0; min-height: 100dvh; height: auto; overflow: visible; padding-bottom: calc(82px + env(safe-area-inset-bottom)); }
+  .topbar {
+    height: 64px;
+    margin: max(10px, env(safe-area-inset-top)) 10px 8px;
+    padding: 0 12px;
+    grid-template-columns: 1fr auto;
+  }
+  .top-center { display: none; }
+  .top-right > span:not(.status-pill), .top-right .icon-button:first-of-type { display:none; }
+  .top-right { gap: 6px; }
+  .brand { gap: 7px; letter-spacing: .08em; }
+  .brand-name { font-size: 12px; }
+  .brand-status { font-size: 10px; }
+  .brand-version { font-size: 9px; }
+
+  .hud-layout {
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 2px 10px 0;
+  }
+  .left-column, .right-column { display: contents; }
+  .center-column { order: -2; }
+  .core-console { min-height: 540px; height: 62dvh; }
+  .core-stage::before { width: 220px; height: 220px; }
+  .radar-a { width: 280px; height: 280px; }
+  .radar-b { width: 340px; height: 340px; }
+  .core-status-strip { gap: 10px; flex-wrap: wrap; }
+  .quick-actions { overflow-x: auto; justify-content: flex-start; padding-inline: 10px; -webkit-overflow-scrolling: touch; }
+  .quick-button { flex: 0 0 auto; min-height: 42px; }
+
+  .panel { padding: 12px; }
+  .module-list { display:grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .workshop-panel { max-height: 210px; }
+  .event-panel { min-height: 220px; }
+
+  .command-bar {
+    position: fixed;
+    left: 10px;
+    right: 10px;
+    bottom: max(10px, env(safe-area-inset-bottom));
+    height: 58px;
+    grid-template-columns: 20px minmax(0, 1fr) auto auto;
+    z-index: 100;
+    gap: 6px;
+    padding: 8px;
+    border-radius: 14px;
+  }
+  .command-bar input { font-size: 14px; min-width: 0; }
+  .command-bar .hud-button { min-width: 42px; padding: 0 10px; }
+  .command-bar .danger { display:none; }
+
+  .overlay-panel { width: calc(100vw - 20px); max-height: calc(100dvh - 20px); border-radius: 16px; }
+  .chat-scroll { min-height: 260px; max-height: 60dvh; }
+  .settings-grid { grid-template-columns: 1fr; }
+  .first-run-box { width: calc(100vw - 28px); padding: 24px; }
+  .first-run-logo { font-size: 48px; }
+}
+
+@media (max-width: 480px) {
+  .topbar { margin-inline: 7px; }
+  .hud-layout { padding-inline: 7px; }
+  .core-console { min-height: 500px; height: 60dvh; }
+  .core-caption span { font-size: 16px; }
+  .core-caption strong { font-size: 9px; }
+  .system-cards { grid-template-columns: repeat(3, 1fr); }
+  .system-cards > div { padding: 9px 4px; }
+  .system-cards strong { font-size: 12px; }
+  .system-cards span { font-size: 8px; }
+  .metric-row { grid-template-columns: 38px 1fr 34px; }
+  .module-list { grid-template-columns: 1fr; }
+  .first-run-box p { font-size: 9px; }
+}
+
+@media (pointer: coarse) {
+  button, select, input { min-height: 42px; }
+  .icon-button { min-height: 42px; min-width: 42px; }
+}

@@ -1,0 +1,34 @@
+{
+  "expo": {
+    "name": "NativeComm",
+    "slug": "nativecomm",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "nativecomm",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "android": {
+      "package": "com.nativecomm.app",
+      "edgeToEdgeEnabled": true,
+      "permissions": ["RECORD_AUDIO", "MODIFY_AUDIO_SETTINGS", "READ_CONTACTS", "WRITE_CONTACTS", "POST_NOTIFICATIONS"]
+    },
+    "ios": {
+      "bundleIdentifier": "com.nativecomm.app",
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSMicrophoneUsageDescription": "NativeComm needs microphone access for internet voice calls.",
+        "NSContactsUsageDescription": "NativeComm uses your contacts to help you find people to call or message.",
+        "NSPhotoLibraryUsageDescription": "NativeComm uses your photo library to attach images to messages.",
+        "UIBackgroundModes": ["audio", "remote-notification"]
+      }
+    },
+    "plugins": [
+      ["@config-plugins/react-native-webrtc", {"microphonePermission":"NativeComm needs your microphone for internet calls."}],
+      ["expo-notifications", {"sounds": []}],
+      ["expo-contacts", {"contactsPermission":"NativeComm uses your contacts to help you find people."}],
+      "expo-document-picker",
+      "expo-image-picker",
+      "expo-secure-store"
+    ]
+  }
+}

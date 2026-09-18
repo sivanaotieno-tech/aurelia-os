@@ -1,0 +1,7 @@
+E.V. — Enhanced Voice
+
+This source project is provided for personal, educational and fan-project use.
+
+The project is original and is not affiliated with, endorsed by, or sponsored by Marvel, Sony Pictures, or any Spider-Man rights holder.
+
+Third-party dependencies remain under their respective licenses.

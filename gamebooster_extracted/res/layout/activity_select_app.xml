@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@id/grid_parent" android:background="@drawable/bmp_pattern" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <View android:id="@id/tint_bg" android:background="#88ffffff" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <androidx.recyclerview.widget.RecyclerView android:gravity="center" android:id="@id/grid_apps" android:layout_width="fill_parent" android:layout_height="fill_parent" android:horizontalSpacing="1.0dip" android:verticalSpacing="1.0dip" android:stretchMode="columnWidth" android:columnWidth="80.0dip" android:numColumns="auto_fit" android:layout_below="@id/top_layout" />
+    <LinearLayout android:orientation="vertical" android:id="@id/top_layout" android:background="@drawable/bg_rounded_sq_blue" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <TextView android:textStyle="bold" android:textColor="#ffdddddd" android:layout_gravity="center_horizontal" android:id="@id/app_list_hint_tv" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/app_list_hint" />
+        <CheckBox android:textColor="#ffdddddd" android:layout_gravity="center_horizontal" android:id="@id/checkBox1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:checked="false" android:text="@string/show_system_apps" />
+    </LinearLayout>
+</RelativeLayout>

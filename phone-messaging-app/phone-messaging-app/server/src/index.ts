@@ -1,0 +1,30 @@
+import 'dotenv/config';
+import http from 'node:http';
+import express from 'express';
+import cors from 'cors';
+import rateLimit from 'express-rate-limit';
+import { Server } from 'socket.io';
+import { initDb } from './database/db.js';
+import authRoutes from './routes/auth.js';
+import userRoutes from './routes/users.js';
+import conversationRoutes from './routes/conversations.js';
+import messageRoutes from './routes/messages.js';
+import callRoutes from './routes/calls.js';
+import { setupSocket } from './socket/index.js';
+
+initDb();
+const app=express();
+app.set('trust proxy',1);
+app.use(cors({origin:(process.env.CORS_ORIGINS||'*').split(',').map(x=>x.trim()).includes('*')?'*':(process.env.CORS_ORIGINS||'').split(',')}));
+app.use(express.json({limit:'2mb'}));
+const authLimiter=rateLimit({windowMs:15*60*1000,max:100,standardHeaders:true,legacyHeaders:false});
+app.get('/health',(_req,res)=>res.json({ok:true,service:'NativeComm API',time:new Date().toISOString()}));
+app.use('/api/auth',authLimiter,authRoutes);
+app.use('/api/users',userRoutes);
+app.use('/api/conversations',conversationRoutes);
+app.use('/api/messages',messageRoutes);
+app.use('/api/calls',callRoutes);
+
+const port=Number(process.env.SERVER_PORT||4000);const httpServer=http.createServer(app);const io=new Server(httpServer,{cors:{origin:(process.env.CORS_ORIGINS||'*').split(',').includes('*')?'*':(process.env.CORS_ORIGINS||'').split(','),methods:['GET','POST']}});setupSocket(io);
+httpServer.listen(port,()=>console.log(`NativeComm server listening on http://0.0.0.0:${port}`));
+export { app, io };

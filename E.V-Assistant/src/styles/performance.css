@@ -1,0 +1,125 @@
+/* E.V. display-performance layer.
+   The HUD remains crisp and vector-based while avoiding expensive full-window filters
+   that can stutter on high-DPI / 4K displays. */
+
+html, body, #root {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+
+.hud-shell,
+.hud-layout,
+.center-column,
+.left-column,
+.right-column,
+.core-console,
+.command-bar {
+  contain: layout paint style;
+}
+
+.hud-panel {
+  /* Solid translucent panels are much cheaper than backdrop-filter on large 4K surfaces. */
+  background: rgba(3, 10, 18, 0.86);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.hud-grid,
+.scanlines {
+  contain: strict;
+}
+
+.core-radar,
+.core-ring,
+.core-orb,
+.core-orb::before,
+.core-waveform i {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.core-stage {
+  contain: layout paint;
+  isolation: isolate;
+}
+
+.overlay {
+  background: rgba(1, 5, 10, 0.86);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.overlay-panel,
+.permission-box,
+.screenshot-box,
+.first-run-box {
+  contain: layout paint;
+}
+
+button,
+input,
+select {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (min-width: 1920px) {
+  .hud-shell {
+    min-width: 100%;
+    min-height: 100%;
+  }
+
+  .hud-layout {
+    grid-template-columns: 360px minmax(700px, 1fr) 450px;
+    gap: 12px;
+  }
+
+  .topbar {
+    height: 86px;
+  }
+
+  .brand-name,
+  .brand-status {
+    font-size: 14px;
+  }
+
+  .panel-title {
+    font-size: 13px;
+  }
+
+  .metric-label,
+  .metric-value,
+  .detail-list div,
+  .status-pill,
+  .event-list,
+  .log-console,
+  .local-status div {
+    font-size: 11px;
+  }
+
+  .core-orb {
+    width: 170px;
+    height: 170px;
+  }
+
+  .radar-a {
+    width: 520px;
+    height: 520px;
+  }
+
+  .radar-b {
+    width: 620px;
+    height: 620px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+}

@@ -1,0 +1,13 @@
+services:
+  nativecomm:
+    build: .
+    env_file: server/.env
+    ports:
+      - "4000:4000"
+    volumes:
+      - nativecomm-data:/app/data
+      - nativecomm-uploads:/app/server/uploads
+    restart: unless-stopped
+volumes:
+  nativecomm-data:
+  nativecomm-uploads:

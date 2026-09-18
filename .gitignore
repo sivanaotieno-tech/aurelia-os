@@ -1,0 +1,13 @@
+node_modules/
+.ds_store
+*.apk
+*.jar
+*.exe
+jdk-17.0.10+7/
+platform-tools/
+.knownPackages
+android/app/build/
+**/build/
+**/.cxx/
+*.so
+

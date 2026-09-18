@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "../.."
+		},
+		{
+			"path": "../../../../../aurelia-os/media-player"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "aurelia-os"
+	}
+}

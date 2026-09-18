@@ -1,0 +1,18 @@
+﻿[Unit]
+Description=Aurelia OS Native Browser Shell
+After=systemd-user-sessions.service graphics.target dbus.service
+Wants=graphics.target
+Conflicts=getty@tty1.service
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/aurelia
+ExecStart=/bin/bash /opt/aurelia/bin/launch-ui.sh
+Restart=always
+RestartSec=1s
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=graphical.target

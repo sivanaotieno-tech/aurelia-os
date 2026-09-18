@@ -1,0 +1,39 @@
+{
+  "name": "chronium",
+  "productName": "Chronium",
+  "version": "1.0.0",
+  "description": "A fast, private, Chromium-powered browser.",
+  "author": "Chronium",
+  "license": "BSD-3-Clause",
+  "homepage": "https://chronium.local",
+  "main": "./out/main/index.js",
+  "scripts": {
+    "dev": "electron-vite dev",
+    "build": "electron-vite build",
+    "preview": "electron-vite preview",
+    "start": "electron-vite dev",
+    "pack": "npm run build && electron-builder --dir",
+    "dist": "npm run build && electron-builder",
+    "test": "vitest run",
+    "test:e2e": "electron-vite build && cross-env CHRONIUM_E2E=1 electron ./out/main/index.js",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "dependencies": {
+    "electron-updater": "^6.6.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.16.5",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@vitejs/plugin-react": "^4.7.0",
+    "cross-env": "^10.0.0",
+    "electron": "^37.2.6",
+    "electron-builder": "^26.0.12",
+    "electron-vite": "^4.0.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4",
+    "vite": "^7.0.6"
+  }
+}

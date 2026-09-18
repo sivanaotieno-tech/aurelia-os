@@ -1,0 +1,30 @@
+.class public interface abstract Lcom/google/android/gms/internal/ads/Ad;
+.super Ljava/lang/Object;
+
+
+# virtual methods
+.method public abstract a(Ljava/lang/String;)Lcom/google/android/gms/internal/ads/Yf;
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Ljava/lang/String;",
+            ")",
+            "Lcom/google/android/gms/internal/ads/Yf<",
+            "Ljava/lang/String;",
+            ">;"
+        }
+    .end annotation
+.end method
+
+.method public abstract b(Ljava/lang/String;)Lcom/google/android/gms/internal/ads/Yf;
+    .annotation system Ldalvik/annotation/Signature;
+        value = {
+            "(",
+            "Ljava/lang/String;",
+            ")",
+            "Lcom/google/android/gms/internal/ads/Yf<",
+            "Ljava/lang/String;",
+            ">;"
+        }
+    .end annotation
+.end method

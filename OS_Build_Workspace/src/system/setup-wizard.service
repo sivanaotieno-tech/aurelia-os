@@ -1,0 +1,17 @@
+﻿[Unit]
+Description=OS First Boot Setup Assistant
+ConditionPathExists=/etc/first-boot-pending
+After=graphical.target sound.target
+Wants=sound.target
+
+[Service]
+Type=simple
+Environment=DISPLAY=:0
+Environment=XAUTHORITY=/home/chronos/.Xauthority
+ExecStart=/usr/bin/python3 /usr/local/bin/setup_wizard.py --fullscreen
+Restart=on-failure
+RestartSec=3s
+User=root
+
+[Install]
+WantedBy=graphical.target

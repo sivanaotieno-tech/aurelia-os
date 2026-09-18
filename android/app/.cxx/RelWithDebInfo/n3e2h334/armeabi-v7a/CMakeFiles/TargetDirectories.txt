@@ -1,0 +1,6 @@
+C:/Users/Admin/Downloads/Movies_for-my-home_theatre/aurelia-os/android/app/.cxx/RelWithDebInfo/n3e2h334/armeabi-v7a/CMakeFiles/appmodules.dir
+C:/Users/Admin/Downloads/Movies_for-my-home_theatre/aurelia-os/android/app/.cxx/RelWithDebInfo/n3e2h334/armeabi-v7a/CMakeFiles/edit_cache.dir
+C:/Users/Admin/Downloads/Movies_for-my-home_theatre/aurelia-os/android/app/.cxx/RelWithDebInfo/n3e2h334/armeabi-v7a/CMakeFiles/rebuild_cache.dir
+C:/Users/Admin/Downloads/Movies_for-my-home_theatre/aurelia-os/android/app/.cxx/RelWithDebInfo/n3e2h334/armeabi-v7a/rnsvg_autolinked_build/CMakeFiles/react_codegen_rnsvg.dir
+C:/Users/Admin/Downloads/Movies_for-my-home_theatre/aurelia-os/android/app/.cxx/RelWithDebInfo/n3e2h334/armeabi-v7a/rnsvg_autolinked_build/CMakeFiles/edit_cache.dir
+C:/Users/Admin/Downloads/Movies_for-my-home_theatre/aurelia-os/android/app/.cxx/RelWithDebInfo/n3e2h334/armeabi-v7a/rnsvg_autolinked_build/CMakeFiles/rebuild_cache.dir

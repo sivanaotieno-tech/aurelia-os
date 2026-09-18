@@ -1,0 +1,35 @@
+/* Production correctness overrides. Keep the HUD truthful and interaction unambiguous. */
+.hud-shell > .first-run { display: none !important; }
+
+.module-list .status-pill {
+  display: flex !important;
+  align-items: center;
+  gap: 8px !important;
+  min-width: 0;
+}
+.module-list .status-pill > span:last-child {
+  display: block !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 10px !important;
+  color: #b7d6df !important;
+}
+.module-list .status-pill > span:last-child::before,
+.module-list .status-pill > span:last-child::after { content: none !important; }
+.module-list .status-pill:nth-child(5) { display: flex !important; }
+.module-list .status-pill.is-online .status-dot { background: var(--green); }
+.module-list .status-pill.is-offline .status-dot { background: #e04a70; box-shadow: 0 0 8px rgba(224,74,112,.5); }
+
+.log-line.warn { color: #e7b85e; }
+.log-line.error { color: #ff5c79; }
+
+/* Prevent accidental text selection while operating the HUD. */
+.hud-shell { user-select: none; }
+.command-bar input,
+.settings-grid input,
+.settings-grid select,
+.memory-search input { user-select: text; }
+
+/* Keep touch targets reliable without introducing layout jumps. */
+button { -webkit-tap-highlight-color: transparent; }

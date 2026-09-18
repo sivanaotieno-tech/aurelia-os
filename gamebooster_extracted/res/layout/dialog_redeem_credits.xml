@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@id/dialog_root_credits" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:padding="5.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <ImageView android:id="@id/imageView1" android:layout_width="32.0dip" android:layout_height="32.0dip" android:src="@drawable/ic_coin" android:layout_alignParentLeft="true" android:layout_alignParentTop="true" />
+        <TextView android:textStyle="bold" android:id="@id/tv_credits_cost" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginLeft="10.0dip" android:text="@string/option_locked" android:layout_toRightOf="@id/imageView1" android:layout_alignTop="@id/imageView1" />
+        <TextView android:id="@id/tv_credits" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/you_have_credits" android:layout_below="@id/tv_credits_cost" android:layout_alignLeft="@id/tv_credits_cost" />
+        <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="15.0dip" android:layout_below="@id/imageView1">
+            <Button android:id="@id/btn_get_credits" android:background="@color/simple_grey" android:padding="5.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/earn_more_credits" android:layout_weight="1.0" />
+            <Button android:textColor="#ffffffff" android:id="@id/btn_use_credits" android:background="@color/colorPrimaryDark" android:padding="5.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/use_credits" android:layout_weight="1.0" />
+        </LinearLayout>
+    </RelativeLayout>
+    <Button android:id="@id/btn_close" android:layout_width="wrap_content" android:layout_height="wrap_content" android:minWidth="20.0dip" android:minHeight="20.0dip" android:text="X" android:layout_alignParentTop="true" android:layout_alignParentRight="true" />
+</RelativeLayout>

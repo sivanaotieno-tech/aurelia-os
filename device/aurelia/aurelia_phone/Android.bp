@@ -1,0 +1,10 @@
+
+cc_binary {
+    name: "aurelia_hal_daemon",
+    srcs: ["aurelia_hal.cpp", "aurelia_daemon.cpp"],
+    cflags: ["-Wall", "-Werror", "-std=c++14"],
+    shared_libs: ["liblog", "libutils", "libcutils"],
+    init_rc: ["aurelia_hal.rc"],
+    vendor: true,
+}
+

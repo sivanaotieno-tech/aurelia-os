@@ -1,0 +1,63 @@
+appId: app.chronium.browser
+productName: Chronium
+copyright: Copyright © Chronium
+artifactName: ${productName}-Setup-${version}.${ext}
+directories:
+  output: release
+  buildResources: build
+files:
+  - out/**/*
+  - package.json
+extraResources:
+  - from: assets/icons
+    to: icons
+  - from: assets/branding
+    to: branding
+asar: true
+asarUnpack:
+  - "**/*.node"
+compression: maximum
+win:
+  icon: build/icon.png
+  target:
+    - target: nsis
+      arch:
+        - x64
+  legalTrademarks: Chronium
+  requestedExecutionLevel: asInvoker
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  installerIcon: build/icon.png
+  uninstallerIcon: build/icon.png
+  installerHeaderIcon: build/icon.png
+  createDesktopShortcut: always
+  createStartMenuShortcut: true
+  shortcutName: Chronium
+  include: installer/nsis/browser-assoc.nsh
+  license: LICENSE
+  displayLanguageSelector: false
+  runAfterFinish: true
+  uninstallDisplayName: Chronium
+protocols:
+  - name: Chronium URL
+    schemes:
+      - http
+      - https
+      - chronium
+fileAssociations:
+  - ext: html
+    name: HTML Document
+    description: Chronium HTML Document
+    role: Viewer
+    icon: build/icon.png
+  - ext: htm
+    name: HTML Document
+    description: Chronium HTML Document
+    role: Viewer
+    icon: build/icon.png
+publish:
+  provider: generic
+  url: https://updates.chronium.app/releases
+  useMultipleRangeRequest: false

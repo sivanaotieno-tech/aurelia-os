@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:background="#ffffffff" android:paddingLeft="16.0dip" android:paddingRight="16.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_margin="0.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:layout_width="24.0dip" android:layout_height="24.0dip" android:src="@drawable/ic_presage_notification_icon" />
+    <LinearLayout android:layout_gravity="center" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginLeft="16.0dip" android:layout_marginTop="8.0dip" android:layout_marginRight="16.0dip" android:layout_marginBottom="8.0dip">
+        <TextView android:textStyle="bold" android:textColor="#ff4d4a4a" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/presage_app_install_notification_title" />
+        <TextView android:textColor="#ff4d4a4a" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/presage_app_install_wait" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,10 @@
+fastapi>=0.115,<1.0
+uvicorn[standard]>=0.34,<1.0
+requests>=2.32,<3.0
+psutil>=6.1,<8.0
+pyttsx3>=2.99,<3.0
+pyperclip>=1.9,<2.0
+pyautogui>=0.9.54,<1.0
+Pillow>=11,<13
+python-multipart>=0.0.20,<1.0
+faster-whisper>=1.1,<2.0

@@ -1,0 +1,25 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.aurelia.evassistant">
+
+    <!-- Privileged System Permissions -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+    
+    <!-- Allows E.V-Assistant to stay active constantly as a background daemon -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+    <application
+        android:persistent="true"
+        android:allowClearUserData="false"
+        android:label="E.V-Assistant System Service">
+
+        <service
+            android:name=".EVAssistantService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_VOICE_INTERACTION">
+        </service>
+    </application>
+</manifest>

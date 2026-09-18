@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/main.tsx","./src/types.ts","./src/components/coreorb.tsx","./src/components/metricbar.tsx","./src/components/panel.tsx","./src/components/statuspill.tsx","./src/services/api.ts"],"version":"5.9.3"}
