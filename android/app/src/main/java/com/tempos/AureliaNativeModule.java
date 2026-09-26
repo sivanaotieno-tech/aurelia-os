@@ -38,7 +38,7 @@ public class AureliaNativeModule extends ReactContextBaseJavaModule {
       return;
     }
     try {
-      Intent i = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + Uri.encode(number)));
+      Intent i = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + Uri.encode(number)));
       a.startActivity(i);
       promise.resolve(true);
     } catch (Exception e) { promise.reject("CALL_FAILED", e); }
@@ -101,8 +101,8 @@ public class AureliaNativeModule extends ReactContextBaseJavaModule {
     if (Build.VERSION.SDK_INT >= 26) {
       nm.createNotificationChannel(new NotificationChannel(channelId, "Aurelia", NotificationManager.IMPORTANCE_DEFAULT));
     }
-    Notification.Builder builder = new Notification.Builder(a, channelId)
-      .setSmallIcon(com.tempos.R.mipmap.ic_launcher)
+    Notification.Builder builder = Build.VERSION.SDK_INT >= 26 ? new Notification.Builder(a, channelId) : new Notification.Builder(a);
+    builder.setSmallIcon(com.tempos.R.mipmap.ic_launcher)
       .setContentTitle(title)
       .setContentText(message)
       .setAutoCancel(true);
