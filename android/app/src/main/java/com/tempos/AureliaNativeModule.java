@@ -12,7 +12,6 @@ import android.provider.Settings;
 import android.provider.Telephony;
 
 import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
 import com.facebook.react.bridge.ActivityEventListener;
@@ -102,11 +101,11 @@ public class AureliaNativeModule extends ReactContextBaseJavaModule {
     if (Build.VERSION.SDK_INT >= 26) {
       nm.createNotificationChannel(new NotificationChannel(channelId, "Aurelia", NotificationManager.IMPORTANCE_DEFAULT));
     }
-    nm.notify((int)System.currentTimeMillis(), new NotificationCompat.Builder(a, channelId)
+    Notification.Builder builder = new Notification.Builder(a, channelId)
       .setSmallIcon(com.tempos.R.mipmap.ic_launcher)
       .setContentTitle(title)
       .setContentText(message)
-      .setAutoCancel(true)
-      .build());
+      .setAutoCancel(true);
+    nm.notify((int)System.currentTimeMillis(), builder.build());
   }
 }
