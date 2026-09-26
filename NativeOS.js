@@ -11,4 +11,12 @@ export const NativeOS = {
   cellular: () => AureliaNative?.cellular(),
   appNotifications: () => AureliaNative?.appNotifications(),
   postNotification: (title, message) => AureliaNative?.postNotification(title, message),
+  wifi: () => AureliaNative?.wifi(),
+  sound: () => AureliaNative?.sound(),
+  settings: () => AureliaNative?.settings(),
+  appSettings: () => AureliaNative?.appSettings(),
+  gallery: () => AureliaNative?.gallery(),
+  files: () => AureliaNative?.files(),
+  music: () => AureliaNative?.music(),
+  calendar: () => AureliaNative?.calendar(),
 };
