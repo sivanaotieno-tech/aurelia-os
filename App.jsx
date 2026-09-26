@@ -1,88 +1,100 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { NativeOS } from './NativeOS';
-import { SafeAreaView, StatusBar, StyleSheet, Text, View, Pressable, ScrollView, TextInput, Switch } from 'react-native';
-import { Activity, Bell, Bluetooth, CalendarDays, Camera, ChevronLeft, FileText, Folder, Headphones, Image, Lock, Menu, MessageCircle, Music2, Phone, Search, Settings, ShieldCheck, Sparkles, Sun, Wifi, X, Zap } from 'lucide-react-native';
+import { SafeAreaView, StatusBar, StyleSheet, Text, View, Pressable, ScrollView, TextInput, Switch, Alert } from 'react-native';
+import { Activity, Bell, Bluetooth, CalendarDays, Camera, ChevronLeft, FileText, Folder, Headphones, Image, Lock, Menu, MessageCircle, Music2, Phone, Search, Settings, ShieldCheck, Sparkles, Sun, Wifi, X, Zap, Smartphone, Shield, ChevronRight } from 'lucide-react-native';
 
 const APPS = [
-  {name:'Phone', icon:Phone, color:'#42E8A4', description:'Calls and contacts'},
-  {name:'Messages', icon:MessageCircle, color:'#63A7FF', description:'Messages and conversations'},
-  {name:'Camera', icon:Camera, color:'#FF8CC8', description:'Capture photos and video'},
-  {name:'Gallery', icon:Image, color:'#B99BFF', description:'Photos and albums'},
-  {name:'Music', icon:Music2, color:'#FFC857', description:'Music and playlists'},
+  {name:'Phone', icon:Phone, color:'#42E8A4', description:'Open the phone dialer'},
+  {name:'Messages', icon:MessageCircle, color:'#63A7FF', description:'Compose a text message'},
+  {name:'Camera', icon:Camera, color:'#FF8CC8', description:'Capture a photo with your camera app'},
+  {name:'Gallery', icon:Image, color:'#B99BFF', description:'Choose an image from your device'},
+  {name:'Music', icon:Music2, color:'#FFC857', description:'Choose audio from your device'},
   {name:'Files', icon:Folder, color:'#FF9C7A', description:'Browse files on this device'},
-  {name:'Calendar', icon:CalendarDays, color:'#74B9FF', description:'Events and reminders'},
-  {name:'Settings', icon:Settings, color:'#D8E1F2', description:'Aurelia preferences'},
+  {name:'Calendar', icon:CalendarDays, color:'#74B9FF', description:'Create a calendar event'},
+  {name:'Settings', icon:Settings, color:'#D8E1F2', description:'Aurelia preferences and Android settings'},
+  {name:'Bluetooth', icon:Bluetooth, color:'#A5B4FF', description:'Manage Bluetooth in Android settings'},
+  {name:'Mobile Network', icon:Activity, color:'#73D9E8', description:'SIM and mobile network settings'},
+  {name:'Notifications', icon:Bell, color:'#F5B7E6', description:'Notification permissions and test alert'},
 ];
 
 const QUICK = [
-  {key:'wifi',label:'Wi-Fi',icon:Wifi},
-  {key:'bluetooth',label:'Bluetooth',icon:Bluetooth},
-  {key:'silent',label:'Silent',icon:Headphones},
-  {key:'flash',label:'Flashlight',icon:Zap},
+  {key:'wifi',label:'Wi-Fi',icon:Wifi,action:()=>NativeOS.wifi()},
+  {key:'bluetooth',label:'Bluetooth',icon:Bluetooth,action:()=>NativeOS.bluetooth()},
+  {key:'sound',label:'Sound',icon:Headphones,action:()=>NativeOS.sound()},
+  {key:'settings',label:'Settings',icon:Settings,action:()=>NativeOS.settings()},
 ];
 
-function pad(n){return String(n).padStart(2,'0');}
+const pad=n=>String(n).padStart(2,'0');
 
 export default function App(){
   const [now,setNow]=useState(new Date());
   const [page,setPage]=useState('home');
   const [query,setQuery]=useState('');
   const [shade,setShade]=useState(false);
-  const [quick,setQuick]=useState({wifi:true,bluetooth:false,silent:false,flash:false});
-  const [brightness,setBrightness]=useState(true);
   const [theme,setTheme]=useState('midnight');
   const [locked,setLocked]=useState(false);
-
-  useEffect(()=>{const id=setInterval(()=>setNow(new Date()),1000); return()=>clearInterval(id);},[]);
+  const [notificationPermissionNote,setNotificationPermissionNote]=useState('');
+  useEffect(()=>{const id=setInterval(()=>setNow(new Date()),1000);return()=>clearInterval(id);},[]);
   const time=pad(now.getHours())+':'+pad(now.getMinutes());
   const date=now.toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'});
   const filtered=useMemo(()=>APPS.filter(a=>a.name.toLowerCase().includes(query.toLowerCase())),[query]);
-
-  const open=(name)=>{setQuery('');setShade(false);setPage(name.toLowerCase());};
-  const toggle=(key)=>setQuick(q=>({...q,[key]:!q[key]}));
-
-  const Icon=({app,size=25})=>{const I=app.icon;return <View style={[s.icon,{backgroundColor:app.color+'22'}]}><I size={size} color={app.color} strokeWidth={1.9}/></View>};
-
-  if(locked) return <SafeAreaView style={s.safe}><StatusBar barStyle="light-content" backgroundColor="#070A12"/><Pressable style={s.lock} onPress={()=>setLocked(false)}><Lock size={25} color="#BFC9E5"/><Text style={s.lockTime}>{time}</Text><Text style={s.lockDate}>{date}</Text><View style={s.unlock}><Text style={s.unlockText}>Tap to unlock Aurelia</Text></View></Pressable></SafeAreaView>;
-
-  return <SafeAreaView style={s.safe}>
-    <StatusBar barStyle="light-content" backgroundColor="#070A12"/>
-    <View style={s.status}><Text style={s.statusTime}>{time}</Text><Pressable onPress={()=>setShade(true)} style={s.statusRight}><Wifi size={14} color="#E8ECF8"/><Activity size={14} color="#E8ECF8"/><Text style={s.battery}>87%</Text></Pressable></View>
-
-    {page==='home' ? <ScrollView contentContainerStyle={s.content} showsVerticalScrollIndicator={false}>
-      <View style={s.brandRow}><View style={s.logo}><Sparkles size={22} color="#B6B8FF"/></View><View><Text style={s.brand}>AURELIA</Text><Text style={s.sub}>MOBILE OS</Text></View><Pressable style={s.menu} onPress={()=>setShade(true)}><Menu size={20} color="#DCE4F6"/></Pressable></View>
-      <View style={s.hero}><View style={s.orb}/><Text style={s.overline}>GOOD {now.getHours()<12?'MORNING':now.getHours()<18?'AFTERNOON':'EVENING'}</Text><Text style={s.clock}>{time}</Text><Text style={s.date}>{date}</Text><View style={s.heroLine}><View style={s.dot}/><Text style={s.heroText}>Aurelia is ready</Text></View></View>
-
-      <View style={s.search}><Search size={18} color="#7F8CAB"/><TextInput value={query} onChangeText={setQuery} placeholder="Search apps" placeholderTextColor="#71809F" style={s.input}/>{query?<Pressable onPress={()=>setQuery('')}><X size={17} color="#8793AD"/></Pressable>:null}</View>
-
-      <View style={s.section}><Text style={s.sectionTitle}>{query?'Search results':'Apps'}</Text><Text style={s.count}>{filtered.length}</Text></View>
-      <View style={s.grid}>{filtered.map(app=><Pressable key={app.name} onPress={()=>open(app.name)} style={({pressed})=>[s.app,pressed&&s.pressed]}><Icon app={app}/><Text style={s.appName}>{app.name}</Text></Pressable>)}</View>
-
-      <View style={s.section}><Text style={s.sectionTitle}>Aurelia tools</Text></View>
-      <Pressable style={s.card} onPress={()=>setLocked(true)}><View style={s.cardIcon}><ShieldCheck size={21} color="#79E8B0"/></View><View style={s.cardText}><Text style={s.cardTitle}>Private by design</Text><Text style={s.cardSub}>Lock your screen and keep your workspace yours.</Text></View><ChevronLeft size={18} color="#8793AD" style={{transform:[{rotate:'180deg'}]}}/></Pressable>
+  const open=name=>{setQuery('');setShade(false);setPage(name.toLowerCase().replace(' ','-'));};
+  const Icon=({app,size=25})=>{const I=app.icon;return <View style={[s.icon,{backgroundColor:app.color+'22'}]}><I size={size} color={app.color} strokeWidth={1.9}/></View>;};
+  const dark=theme==='midnight';
+  if(locked) return <SafeAreaView style={[s.safe,{backgroundColor:'#070A12'}]}><StatusBar barStyle="light-content" backgroundColor="#070A12"/><Pressable style={s.lock} onPress={()=>setLocked(false)}><View style={s.logo}><Lock size={24} color="#B6B8FF"/></View><Text style={s.lockTime}>{time}</Text><Text style={s.lockDate}>{date}</Text><View style={s.unlock}><Text style={s.unlockText}>Tap to return to Aurelia</Text></View><Text style={s.lockNote}>Demo lock screen · not device security</Text></Pressable></SafeAreaView>;
+  return <SafeAreaView style={[s.safe,{backgroundColor:dark?'#070A12':'#F3F5FC'}]}>
+    <StatusBar barStyle={dark?'light-content':'dark-content'} backgroundColor={dark?'#070A12':'#F3F5FC'}/>
+    <View style={[s.status,{backgroundColor:dark?'#070A12':'#F3F5FC'}]}><Text style={[s.statusTime,{color:dark?'#E8ECF8':'#20263A'}]}>{time}</Text><Pressable onPress={()=>setShade(true)} style={s.statusRight}><Wifi size={14} color={dark?'#E8ECF8':'#20263A'}/><Activity size={14} color={dark?'#E8ECF8':'#20263A'}/><Text style={[s.battery,{color:dark?'#E8ECF8':'#20263A'}]}>Android status</Text></Pressable></View>
+    {page==='home'?<ScrollView contentContainerStyle={s.content} showsVerticalScrollIndicator={false}>
+      <View style={s.brandRow}><View style={s.logo}><Sparkles size={22} color="#B6B8FF"/></View><View><Text style={[s.brand,{color:dark?'#F4F6FF':'#171C2D'}]}>AURELIA</Text><Text style={[s.sub,{color:dark?'#8793AD':'#69738C'}]}>ANDROID EXPERIENCE</Text></View><Pressable style={s.menu} onPress={()=>setShade(true)}><Menu size={20} color={dark?'#DCE4F6':'#3E4963'}/></Pressable></View>
+      <View style={[s.hero,{backgroundColor:dark?'#151A2A':'#E4E8FA'}]}><View style={s.orb}/><Text style={[s.overline,{color:dark?'#AAB3D1':'#626D91'}]}>GOOD {now.getHours()<12?'MORNING':now.getHours()<18?'AFTERNOON':'EVENING'}</Text><Text style={[s.clock,{color:dark?'#F6F7FF':'#171C2D'}]}>{time}</Text><Text style={[s.date,{color:dark?'#AAB3D1':'#626D91'}]}>{date}</Text><View style={s.heroLine}><View style={s.dot}/><Text style={[s.heroText,{color:dark?'#D5DBEF':'#48536D'}]}>Your space, your way</Text></View></View>
+      <View style={[s.search,{backgroundColor:dark?'#151A2A':'#FFFFFF'}]}><Search size={18} color="#7F8CAB"/><TextInput value={query} onChangeText={setQuery} placeholder="Search apps" placeholderTextColor="#71809F" style={[s.input,{color:dark?'#F3F5FC':'#20263A'}]}/>{query?<Pressable onPress={()=>setQuery('')}><X size={17} color="#8793AD"/></Pressable>:null}</View>
+      <View style={s.section}><Text style={[s.sectionTitle,{color:dark?'#E8ECF8':'#20263A'}]}>{query?'Search results':'Your apps'}</Text><Text style={s.count}>{filtered.length}</Text></View>
+      <View style={s.grid}>{filtered.map(app=><Pressable key={app.name} onPress={()=>open(app.name)} style={({pressed})=>[s.app,pressed&&s.pressed]}><Icon app={app}/><Text style={[s.appName,{color:dark?'#E8ECF8':'#20263A'}]}>{app.name}</Text></Pressable>)}</View>
+      <View style={s.section}><Text style={[s.sectionTitle,{color:dark?'#E8ECF8':'#20263A'}]}>Aurelia tools</Text></View>
+      <Pressable style={[s.card,{backgroundColor:dark?'#151A2A':'#FFFFFF'}]} onPress={()=>setLocked(true)}><View style={s.cardIcon}><ShieldCheck size={21} color="#79E8B0"/></View><View style={s.cardText}><Text style={[s.cardTitle,{color:dark?'#E8ECF8':'#20263A'}]}>Privacy & screen</Text><Text style={s.cardSub}>Open the demo lock screen or review Android permissions.</Text></View><ChevronRight size={18} color="#8793AD"/></Pressable>
       <View style={s.dock}>{[APPS[0],APPS[1],APPS[4],APPS[7]].map(a=><Pressable key={a.name} onPress={()=>open(a.name)}><Icon app={a} size={22}/></Pressable>)}</View>
-      <Text style={s.version}>AURELIA OS • BUILD 1.0</Text>
-    </ScrollView> : <AppPage name={page} goHome={()=>setPage('home')} app={APPS.find(a=>a.name.toLowerCase()===page)} onLock={()=>setLocked(true)} brightness={brightness} setBrightness={setBrightness} theme={theme} setTheme={setTheme}/>}
-    
-    {shade && <View style={s.shade}><View style={s.shadeTop}><Text style={s.shadeTitle}>Quick settings</Text><Pressable onPress={()=>setShade(false)}><X size={22} color="#E9EEFB"/></Pressable></View><Text style={s.shadeTime}>{time}</Text><View style={s.quickGrid}>{QUICK.map(q=>{const I=q.icon;return <Pressable key={q.key} onPress={()=>toggle(q.key)} style={[s.quick,{backgroundColor:quick[q.key]?'#6468B4':'#242A3C'}]}><I size={20} color="#FFF"/><Text style={s.quickText}>{q.label}</Text></Pressable>})}</View><View style={s.sliderRow}><Sun size={19} color="#DCE4F6"/><View style={s.slider}><View style={s.sliderFill}/></View></View><View style={s.shadeCard}><Bell size={18} color="#AEB9D5"/><View><Text style={s.notifyTitle}>Aurelia</Text><Text style={s.notify}>You're all set. No new notifications.</Text></View></View></View>}
+      <Text style={s.version}>AURELIA OS • PREVIEW 1.0</Text>
+    </ScrollView>:<AppPage name={page} goHome={()=>setPage('home')} app={APPS.find(a=>a.name.toLowerCase().replace(' ','-')===page)} onLock={()=>setLocked(true)} theme={theme} setTheme={setTheme} notificationPermissionNote={notificationPermissionNote} setNotificationPermissionNote={setNotificationPermissionNote}/>}
+    {shade&&<View style={s.shade}><View style={s.shadeTop}><Text style={s.shadeTitle}>Quick settings</Text><Pressable onPress={()=>setShade(false)}><X size={22} color="#E9EEFB"/></Pressable></View><Text style={s.shadeTime}>{time}</Text><Text style={s.shadeHint}>Shortcuts open the matching Android settings panel.</Text><View style={s.quickGrid}>{QUICK.map(q=>{const I=q.icon;return <Pressable key={q.key} onPress={()=>{setShade(false);q.action();}} style={s.quick}><I size={20} color="#FFF"/><Text style={s.quickText}>{q.label}</Text></Pressable>;})}</View><View style={s.shadeCard}><Bell size={18} color="#AEB9D5"/><View><Text style={s.notifyTitle}>Aurelia</Text><Text style={s.notify}>No new Aurelia notifications.</Text></View></View></View>}
   </SafeAreaView>;
 }
 
-function AppPage({name,goHome,app,onLock,brightness,setBrightness,theme,setTheme}){
- const title=name[0].toUpperCase()+name.slice(1);
+function AppPage({name,goHome,app,onLock,theme,setTheme,notificationPermissionNote,setNotificationPermissionNote}){
  const [phoneNumber,setPhoneNumber]=useState('');
  const [messageNumber,setMessageNumber]=useState('');
  const [notificationSent,setNotificationSent]=useState(false);
- if(name==='settings') return <ScrollView contentContainerStyle={s.page}><Header title="Settings" goHome={goHome}/><Text style={s.pageLead}>Make Aurelia feel like yours.</Text><SettingRow icon={Sun} title="Bright display" sub="Use a brighter interface" control={<Switch value={brightness} onValueChange={setBrightness}/>}/><SettingRow icon={Sparkles} title="Aurelia theme" sub={theme==='midnight'?'Midnight':'Aurora'} control={<Pressable onPress={()=>setTheme(theme==='midnight'?'aurora':'midnight')}><Text style={s.value}>{theme==='midnight'?'Aurora':'Midnight'}</Text></Pressable>}/><SettingRow icon={Lock} title="Screen lock" sub="Protect your workspace" control={<Pressable onPress={onLock}><Text style={s.value}>Lock</Text></Pressable>}/><View style={s.about}><Text style={s.aboutTitle}>Aurelia OS</Text><Text style={s.aboutText}>A custom Android experience built with React Native. Version 1.0.</Text></View></ScrollView>;
+ const title=app?.name||name.split('-').map(x=>x[0].toUpperCase()+x.slice(1)).join(' ');
  const actionButton=(label,onPress,secondary=false)=><Pressable onPress={onPress} style={[s.nativeButton,secondary&&s.secondaryButton]}><Text style={s.nativeButtonText}>{label}</Text></Pressable>;
- const numberField=(value,onChange,placeholder)=><TextInput value={value} onChangeText={onChange} keyboardType="phone-pad" placeholder={placeholder} placeholderTextColor="#71809F" style={s.numberInput}/>;
- let body=null;
- if(name==='phone') body=<View style={s.toolCard}><Text style={s.toolTitle}>Make a call</Text><Text style={s.toolDescription}>Enter a number. Android will open its dialer so you can review and place the call.</Text>{numberField(phoneNumber,setPhoneNumber,'Phone number')}{actionButton('Open phone dialer',()=>NativeOS.call(phoneNumber.trim()))}<Text style={s.toolHint}>Emergency calls should always be made using your device's native dialer.</Text></View>;
- else if(name==='messages') body=<View style={s.toolCard}><Text style={s.toolTitle}>New message</Text><Text style={s.toolDescription}>Choose a recipient and continue in your default SMS app.</Text>{numberField(messageNumber,setMessageNumber,'Recipient phone number')}{actionButton('Compose SMS',()=>NativeOS.sms(messageNumber.trim()))}<Text style={s.toolHint}>Your messaging app handles sending and carrier charges.</Text></View>;
- else if(name==='camera') body=<View style={s.toolCard}><Text style={s.toolTitle}>Camera hardware</Text><Text style={s.toolDescription}>Launch the camera app installed on this Android device to take a photo.</Text>{actionButton('Open device camera',()=>NativeOS.camera())}<Text style={s.toolHint}>Camera preview and saving are handled by the device camera app.</Text></View>;
- else if(name==='bluetooth') body=<View style={s.toolCard}><Bluetooth size={25} color="#AEB4FF"/><Text style={s.toolTitle}>Bluetooth devices</Text><Text style={s.toolDescription}>Manage pairing, connected accessories and Bluetooth availability in Android's protected system panel.</Text>{actionButton('Manage Bluetooth',()=>NativeOS.bluetooth())}</View>;
- else if(name==='cellular') body=<View style={s.toolCard}><Activity size={25} color="#AEB4FF"/><Text style={s.toolTitle}>Mobile network</Text><Text style={s.toolDescription}>Open Android network settings for SIM, mobile data, roaming and carrier controls supported by your device.</Text>{actionButton('Open network settings',()=>NativeOS.cellular())}</View>;
- else if(name==='notifications') body=<View style={s.toolCard}><Bell size={25} color="#AEB4FF"/><Text style={s.toolTitle}>System notifications</Text><Text style={s.toolDescription}>Send a test notification from Aurelia or configure notification permissions for this app.</Text>{actionButton('Send test notification',()=>{NativeOS.postNotification('Aurelia','Your notification system is connected.');setNotificationSent(true);})}{actionButton('Notification permissions',()=>NativeOS.appNotifications(),true)}{notificationSent&&<Text style={s.successText}>Notification request sent. Check the notification shade or permission settings.</Text>}</View>;
- else if(name==='files'||name==='calendar'||name==='gallery'||name==='music') body=<View style={s.toolCard}><Sparkles size={23} color="#A5B4FF"/><Text style={s.toolTitle}>{title} workspace</Text><Text style={s.toolDescription}>{name==='files'?'Aurelia file browsing is planned next.':name==='calendar'?'Calendar events and reminders will be built here.':name==='gallery'?'Aurelia photo albums and media browsing will be built here.':'Your music library and playback controls will be built here.'}</Text>{name==='calendar'&&actionButton('Open cellular settings',()=>NativeOS.cellular(),true)}</View>;
- else body=<View style={s.toolCard}><Text style={s.toolTitle}>Aurelia system app</Text><Text style={s.toolDescription}>This workspace is ready for its next native feature.</Text></View>;
- return <ScrollView contentContainerStyle={s.page}><Header title={app?.name||title} goHome={goHome}/><View style={s.bigIcon}>{app?<Icon app={app} size={42}/>:<FileText size={42} color="#BFC9E5"/>}</View><Text style={s.pageTitle}>{app?.name||title}</Text><Text style={s.pageLead}>{app?.description||'Aurelia system application'}</Text>{body}</ScrollView>;;
+ const field=(value,onChange,placeholder)=><TextInput value={value} onChangeText={onChange} placeholder={placeholder} placeholderTextColor="#71809F" style={s.numberInput}/>;
+ let body;
+ if(name==='phone') body=<ToolCard title="Make a call" description="Enter a phone number. Android opens its dialer so you can review the number before placing a call.">{field(phoneNumber,setPhoneNumber,'Phone number')}{actionButton('Open phone dialer',()=>phoneNumber.trim()?NativeOS.call(phoneNumber.trim()):Alert.alert('Enter a number','Type a phone number first.'))}<Text style={s.toolHint}>Calls are placed in the device dialer; Aurelia does not call automatically.</Text></ToolCard>;
+ else if(name==='messages') body=<ToolCard title="New message" description="Choose a recipient and continue in your default SMS app.">{field(messageNumber,setMessageNumber,'Recipient phone number')}{actionButton('Compose SMS',()=>NativeOS.sms(messageNumber.trim()))}<Text style={s.toolHint}>Your messaging app handles sending and carrier charges.</Text></ToolCard>;
+ else if(name==='camera') body=<ToolCard title="Camera" description="Launch the camera app installed on this Android device.">{actionButton('Open device camera',()=>NativeOS.camera())}<Text style={s.toolHint}>Photo capture and saving are handled by the device camera app.</Text></ToolCard>;
+ else if(name==='gallery') body=<ToolCard title="Choose a photo" description="Open Android's image picker to select an image. The selected file stays in the app you choose.">{actionButton('Browse images',()=>NativeOS.gallery())}</ToolCard>;
+ else if(name==='files') body=<ToolCard title="Device files" description="Open Android's system document picker to browse files and choose a document.">{actionButton('Browse files',()=>NativeOS.files())}</ToolCard>;
+ else if(name==='music') body=<ToolCard title="Choose audio" description="Open the system picker for audio files. Playback is handled by your installed music player.">{actionButton('Browse audio',()=>NativeOS.music())}</ToolCard>;
+ else if(name==='calendar') body=<ToolCard title="New calendar event" description="Open your calendar's event editor. Review details and save there.">{actionButton('Create event',()=>NativeOS.calendar())}</ToolCard>;
+ else if(name==='bluetooth') body=<ToolCard title="Bluetooth devices" description="Manage pairing and Bluetooth availability in Android's protected settings panel.">{actionButton('Manage Bluetooth',()=>NativeOS.bluetooth())}</ToolCard>;
+ else if(name==='mobile-network') body=<ToolCard title="Mobile network" description="Open Android network settings for SIM, mobile data, roaming and carrier controls.">{actionButton('Open network settings',()=>NativeOS.cellular())}</ToolCard>;
+ else if(name==='notifications') body=<ToolCard title="Notifications" description="Send a local test notification or configure notification permissions for Aurelia.">{actionButton('Send test notification',()=>{NativeOS.postNotification('Aurelia','Your notification system is connected.');setNotificationSent(true);setNotificationPermissionNote('If Android asks for permission, allow it and tap the test button again.');})}{actionButton('Notification settings',()=>NativeOS.appNotifications(),true)}{notificationSent&&<Text style={s.successText}>Test request sent. {notificationPermissionNote}</Text>}</ToolCard>;
+ else if(name==='settings') body=<View style={s.toolCard}><SettingRow icon={Sparkles} title="Appearance" sub={theme==='midnight'?'Midnight theme':'Light theme'} control={<Pressable onPress={()=>setTheme(theme==='midnight'?'light':'midnight')}><Text style={s.value}>Change</Text></Pressable>}/><SettingRow icon={Lock} title="Demo lock screen" sub="A visual preview, not device authentication" control={<Pressable onPress={onLock}><Text style={s.value}>Preview</Text></Pressable>}/><SettingRow icon={Smartphone} title="Android settings" sub="System-level controls remain managed by Android" control={<Pressable onPress={()=>NativeOS.settings()}><Text style={s.value}>Open</Text></Pressable>}/><SettingRow icon={Shield} title="App permissions" sub="Review permissions in Android" control={<Pressable onPress={()=>NativeOS.appSettings()}><Text style={s.value}>Review</Text></Pressable>}/><View style={s.about}><Text style={s.aboutTitle}>Aurelia OS</Text><Text style={s.aboutText}>A custom Android launcher-style experience. Some device functions use Android's built-in apps and settings.</Text></View></View>;
+ else body=<ToolCard title={title} description="Open the related Android feature from Aurelia.">{actionButton('Open Android settings',()=>NativeOS.settings())}</ToolCard>;
+ return <ScrollView contentContainerStyle={s.page}><Header title={title} goHome={goHome}/><View style={s.bigIcon}>{app?<Icon app={app} size={42}/>:<FileText size={42} color="#BFC9E5"/>}</View><Text style={s.pageTitle}>{title}</Text><Text style={s.pageLead}>{app?.description||'Aurelia system workspace'}</Text>{body}</ScrollView>;
+}
+function ToolCard({title,description,children}){return <View style={s.toolCard}><Sparkles size={23} color="#A5B4FF"/><Text style={s.toolTitle}>{title}</Text><Text style={s.toolDescription}>{description}</Text>{children}</View>;}
+function Header({title,goHome}){return <View style={s.header}><Pressable onPress={goHome} style={s.back}><ChevronLeft size={22} color="#E8ECF8"/></Pressable><Text style={s.headerTitle}>{title}</Text><View style={{width:42}}/></View>;}
+function SettingRow({icon:Icon,title,sub,control}){return <View style={s.settingRow}><View style={s.settingIcon}><Icon size={19} color="#B6B8FF"/></View><View style={s.settingText}><Text style={s.settingTitle}>{title}</Text><Text style={s.settingSub}>{sub}</Text></View>{control}</View>;}
+
+const s=StyleSheet.create({
+ safe:{flex:1,backgroundColor:'#070A12'},status:{height:34,paddingHorizontal:20,flexDirection:'row',alignItems:'center',justifyContent:'space-between'},statusTime:{fontSize:13,fontWeight:'700',color:'#E8ECF8'},statusRight:{flexDirection:'row',alignItems:'center',gap:8},battery:{fontSize:11,color:'#E8ECF8'},
+ content:{paddingHorizontal:20,paddingTop:12,paddingBottom:30},brandRow:{flexDirection:'row',alignItems:'center',gap:12,marginBottom:22},logo:{width:43,height:43,borderRadius:15,backgroundColor:'#282B4B',alignItems:'center',justifyContent:'center'},brand:{fontSize:18,fontWeight:'900',letterSpacing:3,color:'#F4F6FF'},sub:{fontSize:9,fontWeight:'700',letterSpacing:2,color:'#8793AD',marginTop:3},menu:{marginLeft:'auto',width:42,height:42,borderRadius:14,backgroundColor:'#20263A',alignItems:'center',justifyContent:'center'},
+ hero:{height:210,borderRadius:28,backgroundColor:'#151A2A',padding:23,justifyContent:'center',overflow:'hidden',marginBottom:18},orb:{position:'absolute',width:190,height:190,borderRadius:95,backgroundColor:'#6569B5',opacity:.14,right:-38,top:-62},overline:{fontSize:10,letterSpacing:2.5,fontWeight:'800',color:'#AAB3D1'},clock:{fontSize:54,fontWeight:'200',letterSpacing:-2,color:'#F6F7FF',marginTop:3},date:{fontSize:13,color:'#AAB3D1',marginTop:1},heroLine:{flexDirection:'row',alignItems:'center',gap:8,marginTop:17},dot:{width:7,height:7,borderRadius:4,backgroundColor:'#79E8B0'},heroText:{fontSize:12,color:'#D5DBEF'},
+ search:{height:50,borderRadius:16,backgroundColor:'#151A2A',paddingHorizontal:15,flexDirection:'row',alignItems:'center',gap:10,marginBottom:22},input:{flex:1,color:'#F3F5FC',fontSize:14},section:{flexDirection:'row',alignItems:'center',justifyContent:'space-between',marginBottom:13},sectionTitle:{fontSize:17,fontWeight:'800',color:'#E8ECF8'},count:{fontSize:12,color:'#8793AD'},grid:{flexDirection:'row',flexWrap:'wrap',justifyContent:'space-between',rowGap:17,marginBottom:24},app:{width:'23%',alignItems:'center',gap:8,paddingVertical:5,borderRadius:15},pressed:{opacity:.65,transform:[{scale:.96}]},icon:{width:55,height:55,borderRadius:19,alignItems:'center',justifyContent:'center'},appName:{fontSize:11,fontWeight:'600',color:'#E8ECF8',textAlign:'center'},
+ card:{backgroundColor:'#151A2A',borderRadius:18,padding:15,flexDirection:'row',alignItems:'center',gap:12,marginBottom:20},cardIcon:{width:42,height:42,borderRadius:14,backgroundColor:'#79E8B022',alignItems:'center',justifyContent:'center'},cardText:{flex:1},cardTitle:{fontSize:14,fontWeight:'700',color:'#E8ECF8'},cardSub:{fontSize:11,color:'#8793AD',marginTop:4,lineHeight:16},dock:{height:72,borderRadius:24,backgroundColor:'#171C2D',flexDirection:'row',alignItems:'center',justifyContent:'space-around',marginTop:6},version:{fontSize:9,color:'#65708A',textAlign:'center',letterSpacing:1.6,marginTop:17},
+ page:{paddingHorizontal:20,paddingTop:8,paddingBottom:35},header:{height:48,flexDirection:'row',alignItems:'center',justifyContent:'space-between',marginBottom:22},back:{width:42,height:42,borderRadius:14,backgroundColor:'#20263A',alignItems:'center',justifyContent:'center'},headerTitle:{fontSize:16,fontWeight:'800',color:'#E8ECF8'},bigIcon:{alignSelf:'center',marginBottom:13},pageTitle:{fontSize:25,fontWeight:'800',color:'#F4F6FF',textAlign:'center'},pageLead:{fontSize:13,color:'#8793AD',textAlign:'center',lineHeight:20,marginTop:6,marginBottom:22},
+ toolCard:{backgroundColor:'#151A2A',borderRadius:22,padding:20,gap:13},toolTitle:{fontSize:18,fontWeight:'800',color:'#F4F6FF'},toolDescription:{fontSize:13,color:'#AAB3D1',lineHeight:20},toolHint:{fontSize:11,color:'#8793AD',lineHeight:17},numberInput:{height:48,borderRadius:13,backgroundColor:'#0D1220',paddingHorizontal:14,color:'#F4F6FF',fontSize:14},nativeButton:{height:48,borderRadius:14,backgroundColor:'#6468B4',alignItems:'center',justifyContent:'center',paddingHorizontal:12},secondaryButton:{backgroundColor:'#2A3044'},nativeButtonText:{fontSize:13,fontWeight:'800',color:'#FFFFFF'},successText:{fontSize:12,color:'#79E8B0',lineHeight:18},
+ settingRow:{flexDirection:'row',alignItems:'center',gap:11,paddingVertical:14,borderBottomWidth:1,borderBottomColor:'#2A3044'},settingIcon:{width:36,height:36,borderRadius:12,backgroundColor:'#282B4B',alignItems:'center',justifyContent:'center'},settingText:{flex:1},settingTitle:{fontSize:13,fontWeight:'700',color:'#E8ECF8'},settingSub:{fontSize:11,color:'#8793AD',marginTop:4},value:{fontSize:12,color:'#B6B8FF',fontWeight:'800'},about:{marginTop:20,padding:15,borderRadius:15,backgroundColor:'#0D1220'},aboutTitle:{fontSize:14,fontWeight:'800',color:'#E8ECF8'},aboutText:{fontSize:12,color:'#8793AD',lineHeight:18,marginTop:6},
+ lock:{flex:1,alignItems:'center',justifyContent:'center',padding:24},lockTime:{fontSize:66,fontWeight:'200',color:'#F6F7FF',marginTop:20},lockDate:{fontSize:15,color:'#AAB3D1'},unlock:{marginTop:100,paddingHorizontal:25,paddingVertical:14,borderRadius:24,backgroundColor:'#252B42'},unlockText:{fontSize:13,color:'#E8ECF8',fontWeight:'700'},lockNote:{fontSize:10,color:'#69738C',marginTop:18},
+ shade:{...StyleSheet.absoluteFillObject,backgroundColor:'#111626',paddingTop:58,paddingHorizontal:22},shadeTop:{flexDirection:'row',justifyContent:'space-between',alignItems:'center'},shadeTitle:{fontSize:18,fontWeight:'800',color:'#F4F6FF'},shadeTime:{fontSize:42,fontWeight:'300',color:'#F4F6FF',marginTop:22},shadeHint:{fontSize:11,color:'#AAB3D1',marginTop:4,marginBottom:17},quickGrid:{flexDirection:'row',flexWrap:'wrap',gap:12},quick:{width:'47%',height:75,borderRadius:17,backgroundColor:'#343B58',alignItems:'center',justifyContent:'center',gap:7},quickText:{fontSize:12,fontWeight:'700',color:'#FFFFFF'},shadeCard:{marginTop:24,padding:16,borderRadius:17,backgroundColor:'#20263A',flexDirection:'row',gap:12,alignItems:'center'},notifyTitle:{fontSize:13,fontWeight:'800',color:'#E8ECF8'},notify:{fontSize:11,color:'#AAB3D1',marginTop:3}
+});
