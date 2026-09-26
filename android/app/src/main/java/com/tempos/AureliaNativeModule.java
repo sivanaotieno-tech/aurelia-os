@@ -101,4 +101,53 @@ public class AureliaNativeModule extends ReactContextBaseJavaModule {
       .setAutoCancel(true);
     nm.notify((int)System.currentTimeMillis(), builder.build());
   }
+
+  private void launchSystemIntent(Intent intent) {
+    Activity a = getCurrentActivity();
+    if (a == null) return;
+    try { a.startActivity(intent); } catch (Exception ignored) { }
+  }
+
+  @ReactMethod public void wifi() { launchSystemIntent(new Intent(Settings.ACTION_WIFI_SETTINGS)); }
+  @ReactMethod public void sound() { launchSystemIntent(new Intent(Settings.ACTION_SOUND_SETTINGS)); }
+  @ReactMethod public void settings() { launchSystemIntent(new Intent(Settings.ACTION_SETTINGS)); }
+
+  @ReactMethod public void appSettings() {
+    Activity a = getCurrentActivity();
+    if (a == null) return;
+    Intent i = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.fromParts("package", a.getPackageName(), null));
+    a.startActivity(i);
+  }
+
+  @ReactMethod public void gallery() {
+    Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+    i.setType("image/*");
+    i.addCategory(Intent.CATEGORY_OPENABLE);
+    launchSystemIntent(Intent.createChooser(i, "Choose a photo"));
+  }
+
+  @ReactMethod public void files() {
+    Intent i = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+    i.setType("*/*");
+    i.addCategory(Intent.CATEGORY_OPENABLE);
+    i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+    launchSystemIntent(i);
+  }
+
+  @ReactMethod public void music() {
+    Intent i = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+    i.setType("audio/*");
+    i.addCategory(Intent.CATEGORY_OPENABLE);
+    i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+    launchSystemIntent(i);
+  }
+
+  @ReactMethod public void calendar() {
+    Intent i = new Intent(Intent.ACTION_INSERT);
+    i.setData(android.provider.CalendarContract.Events.CONTENT_URI);
+    i.putExtra(android.provider.CalendarContract.Events.TITLE, "Aurelia event");
+    i.putExtra(android.provider.CalendarContract.EXTRA_EVENT_BEGIN_TIME, System.currentTimeMillis() + 3600000L);
+    i.putExtra(android.provider.CalendarContract.EXTRA_EVENT_END_TIME, System.currentTimeMillis() + 7200000L);
+    launchSystemIntent(i);
+  }
 }
